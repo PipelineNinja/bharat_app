@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Shortcuts</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i class="fas fa-user-friends"></i> Friends</li>
+                    <li class="list-group-item"><i class="fas fa-users"></i> Groups</li>
+                    <li class="list-group-item"><i class="fas fa-store"></i> Marketplace</li>
+                    <li class="list-group-item"><i class="fas fa-video"></i> Watch</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card post-card">
+            <div class="card-body">
+                <h4>Welcome to BharatConnect!</h4>
+                <p>Your Indian social networking platform.</p>
+                <div class="d-flex align-items-center mb-3">
+                    <img src="https://via.placeholder.com/40" class="rounded-circle me-2" alt="Profile">
+                    <input type="text" class="form-control" placeholder="What's on your mind?">
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-light"><i class="fas fa-video text-danger"></i> Live Video</button>
+                    <button class="btn btn-light"><i class="fas fa-photo-video text-success"></i> Photo/Video</button>
+                    <button class="btn btn-light"><i class="fas fa-laugh text-warning"></i> Feeling/Activity</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card post-card mt-3">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="https://via.placeholder.com/40" class="rounded-circle me-2" alt="Profile">
+                    <div>
+                        <h6 class="mb-0">Welcome User</h6>
+                        <small class="text-muted">Just now</small>
+                    </div>
+                </div>
+                <p>Welcome to BharatConnect! Start connecting with friends and sharing your moments.</p>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-light"><i class="fas fa-thumbs-up"></i> Like</button>
+                    <button class="btn btn-light"><i class="fas fa-comment"></i> Comment</button>
+                    <button class="btn btn-light"><i class="fas fa-share"></i> Share</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Birthdays</h5>
+                <p><i class="fas fa-gift text-primary"></i> <strong>No birthdays today</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
