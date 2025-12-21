@@ -1,63 +1,275 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Shortcuts</h5>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i class="fas fa-user-friends"></i> Friends</li>
-                    <li class="list-group-item"><i class="fas fa-users"></i> Groups</li>
-                    <li class="list-group-item"><i class="fas fa-store"></i> Marketplace</li>
-                    <li class="list-group-item"><i class="fas fa-video"></i> Watch</li>
-                </ul>
+<!-- Hero Section -->
+<div class="hero-section glass-card animate-fade-in">
+    <div class="hero-content text-center">
+        <h1 class="display-4 fw-bold mb-3">Welcome to Bharat</h1>
+        <p class="lead mb-4">India's modern social network connecting millions across the nation</p>
+        {% if not user.is_authenticated %}
+        <div class="d-flex gap-3 justify-content-center mt-4">
+            <a href="{% url 'signup' %}" class="btn btn-modern btn-lg">
+                <i class="fas fa-rocket me-2"></i> Get Started
+            </a>
+            <a href="{% url 'login' %}" class="btn btn-outline-modern btn-lg">
+                <i class="fas fa-sign-in-alt me-2"></i> Sign In
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Features Grid -->
+<div class="row g-4 mb-5">
+    <div class="col-md-4">
+        <div class="glass-card feature-card animate-fade-in animate-delay-1">
+            <div class="feature-icon floating">
+                <i class="fas fa-users"></i>
             </div>
+            <h4 class="fw-bold mb-3">Connect with Friends</h4>
+            <p class="text-muted">Stay connected with friends and family across India. Share moments and create memories together.</p>
         </div>
     </div>
+    <div class="col-md-4">
+        <div class="glass-card feature-card animate-fade-in animate-delay-2">
+            <div class="feature-icon floating">
+                <i class="fas fa-share-alt"></i>
+            </div>
+            <h4 class="fw-bold mb-3">Share Your Story</h4>
+            <p class="text-muted">Share photos, videos, and updates with your network. Express yourself in multiple Indian languages.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="glass-card feature-card animate-fade-in">
+            <div class="feature-icon floating">
+                <i class="fas fa-compass"></i>
+            </div>
+            <h4 class="fw-bold mb-3">Discover Communities</h4>
+            <p class="text-muted">Join communities based on your interests - from cricket to Bollywood, tech to traditions.</p>
+        </div>
+    </div>
+</div>
 
-    <div class="col-md-6">
-        <div class="card post-card">
-            <div class="card-body">
-                <h4>Welcome to BharatConnect!</h4>
-                <p>Your Indian social networking platform.</p>
-                <div class="d-flex align-items-center mb-3">
-                    <img src="https://via.placeholder.com/40" class="rounded-circle me-2" alt="Profile">
-                    <input type="text" class="form-control" placeholder="What's on your mind?">
+{% if user.is_authenticated %}
+<!-- Dashboard for Logged-in Users -->
+<div class="glass-card p-4 mb-4 animate-fade-in">
+    <div class="row">
+        <div class="col-lg-8">
+            <h3 class="fw-bold mb-4">Welcome back, {{ user.first_name|default:user.username }}! 👋</h3>
+            
+            <!-- Quick Actions -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-3 col-6">
+                    <a href="{% url 'profile' %}" class="text-decoration-none">
+                        <div class="glass-card p-3 text-center">
+                            <i class="fas fa-user-circle fa-2x mb-2 text-primary"></i>
+                            <h6 class="mb-0">Profile</h6>
+                        </div>
+                    </a>
                 </div>
-                <hr>
-                <div class="d-flex justify-content-between">
-                    <button class="btn btn-light"><i class="fas fa-video text-danger"></i> Live Video</button>
-                    <button class="btn btn-light"><i class="fas fa-photo-video text-success"></i> Photo/Video</button>
-                    <button class="btn btn-light"><i class="fas fa-laugh text-warning"></i> Feeling/Activity</button>
+                <div class="col-md-3 col-6">
+                    <a href="#" class="text-decoration-none">
+                        <div class="glass-card p-3 text-center">
+                            <i class="fas fa-comments fa-2x mb-2 text-success"></i>
+                            <h6 class="mb-0">Messages</h6>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-6">
+                    <a href="#" class="text-decoration-none">
+                        <div class="glass-card p-3 text-center">
+                            <i class="fas fa-newspaper fa-2x mb-2 text-warning"></i>
+                            <h6 class="mb-0">News Feed</h6>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 col-6">
+                    <a href="#" class="text-decoration-none">
+                        <div class="glass-card p-3 text-center">
+                            <i class="fas fa-calendar-alt fa-2x mb-2 text-danger"></i>
+                            <h6 class="mb-0">Events</h6>
+                        </div>
+                    </a>
                 </div>
             </div>
-        </div>
-
-        <div class="card post-card mt-3">
-            <div class="card-body">
+            
+            <!-- Create Post -->
+            <div class="glass-card p-4 mb-4">
                 <div class="d-flex align-items-center mb-3">
-                    <img src="https://via.placeholder.com/40" class="rounded-circle me-2" alt="Profile">
-                    <div>
-                        <h6 class="mb-0">Welcome User</h6>
-                        <small class="text-muted">Just now</small>
+                    <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=667eea&color=fff&size=50" 
+                         class="rounded-circle me-3 border border-3 border-primary">
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0">{{ user.get_full_name|default:user.username }}</h6>
+                        <small class="text-muted">What's on your mind?</small>
                     </div>
                 </div>
-                <p>Welcome to BharatConnect! Start connecting with friends and sharing your moments.</p>
-                <div class="d-flex justify-content-between">
-                    <button class="btn btn-light"><i class="fas fa-thumbs-up"></i> Like</button>
-                    <button class="btn btn-light"><i class="fas fa-comment"></i> Comment</button>
-                    <button class="btn btn-light"><i class="fas fa-share"></i> Share</button>
+                <form>
+                    <div class="mb-3">
+                        <textarea class="form-control input-modern" rows="3" 
+                                  placeholder="Share an update, photo, or video..."></textarea>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-outline-modern btn-sm">
+                                <i class="fas fa-image text-success me-1"></i> Photo
+                            </button>
+                            <button type="button" class="btn btn-outline-modern btn-sm">
+                                <i class="fas fa-video text-danger me-1"></i> Video
+                            </button>
+                            <button type="button" class="btn btn-outline-modern btn-sm">
+                                <i class="fas fa-calendar text-warning me-1"></i> Event
+                            </button>
+                        </div>
+                        <button type="submit" class="btn btn-modern">
+                            <i class="fas fa-paper-plane me-1"></i> Post
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <!-- Quick Stats -->
+            <div class="glass-card p-4 mb-4">
+                <h5 class="fw-bold mb-3">Your Network</h5>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Friends</span>
+                        <span class="fw-bold">245</span>
+                    </div>
+                    <div class="progress" style="height: 8px; border-radius: 4px;">
+                        <div class="progress-bar" style="width: 70%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Connections</span>
+                        <span class="fw-bold">1.2K</span>
+                    </div>
+                    <div class="progress" style="height: 8px; border-radius: 4px;">
+                        <div class="progress-bar" style="width: 85%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Engagement</span>
+                        <span class="fw-bold">89%</span>
+                    </div>
+                    <div class="progress" style="height: 8px; border-radius: 4px;">
+                        <div class="progress-bar" style="width: 89%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trending Topics -->
+            <div class="glass-card p-4">
+                <h5 class="fw-bold mb-3">Trending in India</h5>
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action border-0 px-0 py-2">
+                        <span class="badge bg-primary me-2">1</span>
+                        #CricketWorldCup
+                        <small class="text-muted d-block">45.2K posts</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action border-0 px-0 py-2">
+                        <span class="badge bg-secondary me-2">2</span>
+                        #TechStartups
+                        <small class="text-muted d-block">32.8K posts</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action border-0 px-0 py-2">
+                        <span class="badge bg-success me-2">3</span>
+                        #IndianCulture
+                        <small class="text-muted d-block">28.4K posts</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action border-0 px-0 py-2">
+                        <span class="badge bg-warning me-2">4</span>
+                        #BollywoodNews
+                        <small class="text-muted d-block">21.7K posts</small>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action border-0 px-0 py-2">
+                        <span class="badge bg-info me-2">5</span>
+                        #DigitalIndia
+                        <small class="text-muted d-block">18.9K posts</small>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+</div>
+{% else %}
+<!-- Stats Section for Non-logged in Users -->
+<div class="row g-4 mb-5">
+    <div class="col-12">
+        <div class="glass-card p-5 text-center animate-fade-in">
+            <h2 class="fw-bold mb-4">Join India's Fastest Growing Social Network</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="display-4 fw-bold text-primary">10M+</div>
+                    <p class="text-muted">Active Users</p>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="display-4 fw-bold text-success">500K+</div>
+                    <p class="text-muted">Daily Posts</p>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="display-4 fw-bold text-warning">25M+</div>
+                    <p class="text-muted">Connections Made</p>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="display-4 fw-bold text-danger">100+</div>
+                    <p class="text-muted">Cities</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <a href="{% url 'signup' %}" class="btn btn-modern btn-lg px-5">
+                    <i class="fas fa-user-plus me-2"></i> Join Now - It's Free!
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Birthdays</h5>
-                <p><i class="fas fa-gift text-primary"></i> <strong>No birthdays today</strong></p>
+<!-- Testimonials -->
+<div class="glass-card p-5 animate-fade-in">
+    <h2 class="fw-bold text-center mb-5">What Our Users Say</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="glass-card p-4 h-100">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="https://ui-avatars.com/api/?name=Priya+Sharma&background=667eea&color=fff&size=50" 
+                         class="rounded-circle me-3">
+                    <div>
+                        <h6 class="fw-bold mb-0">Priya Sharma</h6>
+                        <small class="text-muted">Mumbai, Designer</small>
+                    </div>
+                </div>
+                <p class="mb-0">"Bharat helped me connect with fellow designers across India. The interface is beautiful and intuitive!"</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="glass-card p-4 h-100">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="https://ui-avatars.com/api/?name=Rahul+Kumar&background=764ba2&color=fff&size=50" 
+                         class="rounded-circle me-3">
+                    <div>
+                        <h6 class="fw-bold mb-0">Rahul Kumar</h6>
+                        <small class="text-muted">Bangalore, Developer</small>
+                    </div>
+                </div>
+                <p class="mb-0">"As a tech enthusiast, I love the modern design and smooth performance. Best social network in India!"</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="glass-card p-4 h-100">
+                <div class="d-flex align-items-center mb-3">
+                    <img src="https://ui-avatars.com/api/?name=Ananya+Patel&background=f5576c&color=fff&size=50" 
+                         class="rounded-circle me-3">
+                    <div>
+                        <h6 class="fw-bold mb-0">Ananya Patel</h6>
+                        <small class="text-muted">Delhi, Student</small>
+                    </div>
+                </div>
+                <p class="mb-0">"Finally a social network that understands Indian users! The regional language support is amazing."</p>
             </div>
         </div>
     </div>

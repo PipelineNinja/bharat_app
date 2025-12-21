@@ -1,16 +1,29 @@
+"""social_network URL Configuration"""
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth import views as auth_views
-from users import views as user_views
-from posts import views as post_views
+from django.conf import settings
+from django.conf.urls.static import static
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', user_views.home, name='home'),
-    path('login/', auth_views.LoginView.as_view(template_name='social/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('signup/', user_views.signup, name='signup'),
-    path('profile/', user_views.profile, name='profile'),
-    path('posts/', include('posts.urls')),
-    path('friends/', include('friends.urls')),
+    path('', views.home, name='home'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('signup/', views.signup_view, name='signup'),
+    path('profile/', views.profile, name='profile'),
+    
+    # Demo URLs
+    path('demo/', views.demo_features, name='demo_features'),
+    path('wow/', views.wow_demo, name='wow_demo'),
+    path('insane/', views.insane_demo, name='insane_demo'),
+    
+    # Include other app URLs if you have them
+    # path('posts/', include('posts.urls')),
+    # path('users/', include('users.urls')),
 ]
+
+# Serve media files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,40 +1,160 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="profile-header">
-    <div class="row align-items-center">
-        <div class="col-md-3 text-center">
-            <img src="https://via.placeholder.com/150" class="rounded-circle" alt="Profile Picture">
-            <h3 class="mt-3">{% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}</h3>
-            <p class="text-muted">@{{ user.username }}</p>
-        </div>
-        <div class="col-md-9">
-            <div class="d-flex justify-content-between align-items-center">
-                <div><h4>Timeline</h4></div>
-                <div>
-                    <button class="btn btn-primary"><i class="fas fa-pencil-alt"></i> Edit Profile</button>
+<div class="fade-in">
+    <!-- Profile Header -->
+    <div class="card card-gradient mb-4">
+        <div class="card-body p-0">
+            <!-- Cover Photo -->
+            <div class="cover-photo" style="height: 200px; background: linear-gradient(135deg, #2563eb, #7c3aed); 
+                  border-radius: 16px 16px 0 0; position: relative;">
+                <button class="btn btn-light btn-sm" style="position: absolute; top: 15px; right: 15px;">
+                    <i class="fas fa-camera me-1"></i> Edit Cover
+                </button>
+            </div>
+            
+            <!-- Profile Info -->
+            <div class="px-4 pb-4" style="margin-top: -60px;">
+                <div class="d-flex justify-content-between align-items-end">
+                    <div class="d-flex align-items-end">
+                        <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=2563eb&color=fff&size=120" 
+                             class="rounded-circle border border-4 border-white" 
+                             alt="Profile" style="width: 120px; height: 120px;">
+                        <div class="ms-4 mb-2">
+                            <h3 class="mb-1">{{ user.get_full_name|default:user.username }}</h3>
+                            <p class="text-muted mb-1">@{{ user.username }}</p>
+                            <div class="d-flex gap-3">
+                                <span><strong>245</strong> Friends</span>
+                                <span><strong>156</strong> Posts</span>
+                                <span><strong>1.2K</strong> Followers</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary me-2">
+                            <i class="fas fa-user-plus me-1"></i> Add Friend
+                        </button>
+                        <button class="btn btn-outline-primary">
+                            <i class="fas fa-envelope me-1"></i> Message
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">About</h5>
-                <p>Member of BharatConnect</p>
-                <button class="btn btn-outline-primary w-100">Edit Details</button>
+    <div class="row">
+        <!-- Left Column - About & Photos -->
+        <div class="col-lg-4 mb-4">
+            <!-- About Card -->
+            <div class="card card-gradient mb-4">
+                <div class="card-body">
+                    <h5 class="mb-3">About</h5>
+                    <div class="mb-3">
+                        <p><i class="fas fa-briefcase me-2 text-muted"></i> Software Engineer at TechCorp</p>
+                        <p><i class="fas fa-graduation-cap me-2 text-muted"></i> Studied at IIT Delhi</p>
+                        <p><i class="fas fa-home me-2 text-muted"></i> Lives in Bangalore, India</p>
+                        <p><i class="fas fa-map-marker-alt me-2 text-muted"></i> From Mumbai, Maharashtra</p>
+                        <p><i class="fas fa-heart me-2 text-muted"></i> Single</p>
+                        <p><i class="fas fa-calendar me-2 text-muted"></i> Joined Bharat in January 2024</p>
+                    </div>
+                    <button class="btn btn-outline-primary w-100">
+                        <i class="fas fa-edit me-1"></i> Edit Profile
+                    </button>
+                </div>
+            </div>
+
+            <!-- Photos Card -->
+            <div class="card card-gradient">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="mb-0">Photos</h5>
+                        <a href="#" class="text-decoration-none">See All</a>
+                    </div>
+                    <div class="row g-2">
+                        {% for i in "123456"|make_list %}
+                        <div class="col-4">
+                            <img src="https://images.unsplash.com/photo-155{{i}}086954-58a6c{{i}}0067?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" 
+                                 class="img-fluid rounded" alt="Photo" style="height: 80px; object-fit: cover;">
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    
-    <div class="col-md-8">
-        <div class="card post-card">
-            <div class="card-body">
-                <h5>Your Activity</h5>
-                <p>Start posting to see your activity here!</p>
+
+        <!-- Right Column - Posts -->
+        <div class="col-lg-8">
+            <!-- Create Post -->
+            <div class="card card-gradient mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=2563eb&color=fff&size=48" 
+                             class="rounded-circle me-3" alt="Profile">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1">{{ user.get_full_name|default:user.username }}</h6>
+                            <small class="text-muted">What's on your mind?</small>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="3" 
+                                      placeholder="Share an update, photo, or video..." 
+                                      style="border-radius: 12px;"></textarea>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-image text-success"></i> Photo
+                                </button>
+                                <button type="button" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-video text-danger"></i> Video
+                                </button>
+                                <button type="button" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-calendar text-warning"></i> Event
+                                </button>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Post</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Profile Posts -->
+            <h5 class="mb-3">Your Posts</h5>
+            
+            <!-- Sample Post -->
+            <div class="card card-gradient mb-3">
+                <div class="post-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=2563eb&color=fff&size=40" 
+                                 class="rounded-circle me-3" alt="User">
+                            <div>
+                                <h6 class="mb-0">{{ user.get_full_name|default:user.username }}</h6>
+                                <small class="text-muted">Yesterday • <i class="fas fa-globe-asia"></i> Public</small>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-light">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>Just launched my new side project! A tool to help local businesses go digital. 
+                       Excited to contribute to #DigitalIndia 🇮🇳 #Startup #TechForGood</p>
+                </div>
+                <div class="post-actions">
+                    <a href="#" class="action-btn">
+                        <i class="fas fa-thumbs-up"></i> Like
+                    </a>
+                    <a href="#" class="action-btn">
+                        <i class="fas fa-comment"></i> Comment
+                    </a>
+                    <a href="#" class="action-btn">
+                        <i class="fas fa-share"></i> Share
+                    </a>
+                </div>
             </div>
         </div>
     </div>

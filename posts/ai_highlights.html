@@ -1,0 +1,39 @@
+<!-- In templates: AI Video Highlights UI -->
+<div class="ai-highlights-card glass-card-enhanced">
+    <div class="ai-header">
+        <i class="fas fa-magic fa-spin text-gradient"></i>
+        <h4>AI Highlights Generated!</h4>
+        <p class="text-muted">Watch your automatic highlight reel</p>
+    </div>
+    
+    <div class="video-container">
+        <video id="highlightVideo" controls class="rounded-lg" 
+               style="width: 100%; border-radius: 20px;">
+            <source src="{{ highlight_url }}" type="video/mp4">
+        </video>
+        
+        <div class="highlight-overlay">
+            <button class="btn btn-modern-enhanced" onclick="shareHighlight()">
+                <i class="fas fa-share-alt"></i> Share Reel
+            </button>
+            <button class="btn btn-outline-modern" onclick="regenerateHighlights()">
+                <i class="fas fa-sync-alt"></i> Regenerate
+            </button>
+        </div>
+    </div>
+    
+    <div class="highlight-stats">
+        <div class="stat">
+            <i class="fas fa-bolt text-warning"></i>
+            <span>5 Exciting Moments</span>
+        </div>
+        <div class="stat">
+            <i class="fas fa-clock text-info"></i>
+            <span>15s Auto-Edited</span>
+        </div>
+        <div class="stat">
+            <i class="fas fa-music text-success"></i>
+            <span>Trending Music Added</span>
+        </div>
+    </div>
+</div>

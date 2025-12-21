@@ -1,0 +1,419 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/ultra_visual.css">
+<style>
+    .demo-section {
+        min-height: 100vh;
+        padding: 80px 20px;
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+        font-weight: 900;
+        margin-bottom: 30px;
+    }
+    
+    .demo-button {
+        padding: 15px 40px;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        margin: 10px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .demo-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    
+    .particle-area {
+        width: 100%;
+        height: 400px;
+        background: rgba(0,0,0,0.5);
+        border-radius: 20px;
+        margin: 40px 0;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .feature-card {
+        padding: 30px;
+        border-radius: 20px;
+        margin: 20px 0;
+        transition: transform 0.3s ease;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-10px);
+    }
+    
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Section 1: Hero with Particle Network -->
+<div class="demo-section particle-network">
+    <canvas id="particleCanvas" style="position: absolute; top:0; left:0; width:100%; height:100%;"></canvas>
+    
+    <div class="container text-center text-white position-relative">
+        <h1 class="neon-glow section-title">BHARAT</h1>
+        <h2 class="liquid-metal display-4 mb-4">Social Network Reimagined</h2>
+        <p class="lead mb-5" style="font-size: 1.5rem; opacity: 0.9;">
+            Experience INSANE visual effects that will blow your mind
+        </p>
+        
+        <div class="mt-4">
+            <button class="demo-button btn-primary" onclick="startFireworks()">
+                <i class="fas fa-fireworks me-2"></i> LAUNCH FIREWORKS
+            </button>
+            <button class="demo-button btn-success" onclick="triggerAllEffects()">
+                <i class="fas fa-magic me-2"></i> TRY ALL EFFECTS
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Section 2: 3D Effects -->
+<div class="demo-section morphing-gradient">
+    <div class="container">
+        <h2 class="text-white text-center section-title">3D Visual Effects</h2>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card-3d-flip">
+                    <div class="card-3d-inner">
+                        <div class="card-3d-front">
+                            <div class="text-center">
+                                <div class="feature-icon">✨</div>
+                                <h3 class="text-white">Hover Over Me</h3>
+                                <p class="text-light">Watch 3D flip magic</p>
+                            </div>
+                        </div>
+                        <div class="card-3d-back">
+                            <div class="text-center">
+                                <div class="feature-icon">🎉</div>
+                                <h3 class="text-white">Amazing!</h3>
+                                <p class="text-light">Smooth 3D animation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="feature-card bg-dark text-white float-animation">
+                    <div class="text-center">
+                        <div class="feature-icon">🏝️</div>
+                        <h3>Floating Island</h3>
+                        <p class="text-light">Hovering animation effect</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section 3: Glitch & Text Effects -->
+<div class="demo-section" style="background: #000;">
+    <div class="container text-center">
+        <h2 class="neon-glow mb-4">GLITCH EFFECT</h2>
+        <div class="glitch" data-text="BHARAT">BHARAT</div>
+        <p class="text-light mt-4">Advanced CSS glitch animation</p>
+        
+        <div class="mt-5">
+            <h3 class="liquid-metal">Liquid Metal Text</h3>
+            <p class="text-light">Flowing metallic effect</p>
+        </div>
+    </div>
+</div>
+
+<!-- Section 4: Interactive Demo -->
+<div class="demo-section" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+    <div class="container">
+        <h2 class="text-white text-center section-title">Interactive Particles</h2>
+        
+        <div class="particle-area">
+            <div class="position-absolute top-50 start-50 translate-middle text-center">
+                <h3 class="text-white">Move Mouse Here</h3>
+                <p class="text-light">Particles will follow your cursor</p>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <button class="demo-button btn-warning" onclick="addParticles()">
+                <i class="fas fa-plus me-2"></i> Add More Particles
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Section 5: Final Showcase -->
+<div class="demo-section" style="background: #000;">
+    <div class="container text-center">
+        <h2 class="neon-glow section-title">Built with Django</h2>
+        <p class="lead text-light mb-5" style="font-size: 1.5rem;">
+            All effects created with pure CSS & JavaScript
+        </p>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="feature-card" style="background: rgba(255,255,255,0.1);">
+                    <h3 class="text-white mb-4">Features Showcased:</h3>
+                    <div class="row text-light">
+                        <div class="col-md-6 mb-3">
+                            <i class="fas fa-check text-success me-2"></i> 3D Card Flip
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <i class="fas fa-check text-success me-2"></i> Particle Network
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <i class="fas fa-check text-success me-2"></i> Glitch Text
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <i class="fas fa-check text-success me-2"></i> Liquid Effects
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <i class="fas fa-check text-success me-2"></i> Neon Glow
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <i class="fas fa-check text-success me-2"></i> Morphing Gradients
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-5">
+            <button class="demo-button btn-danger btn-lg" onclick="grandFinale()">
+                <i class="fas fa-rocket me-2"></i> GRAND FINALE
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Simple Particle System
+class ParticleSystem {
+    constructor(canvasId) {
+        this.canvas = document.getElementById(canvasId);
+        if (!this.canvas) return;
+        
+        this.ctx = this.canvas.getContext('2d');
+        this.particles = [];
+        this.mouse = { x: 0, y: 0 };
+        
+        this.init();
+    }
+    
+    init() {
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+        
+        // Mouse tracking
+        this.canvas.addEventListener('mousemove', (e) => {
+            const rect = this.canvas.getBoundingClientRect();
+            this.mouse.x = e.clientX - rect.left;
+            this.mouse.y = e.clientY - rect.top;
+        });
+        
+        this.createParticles(100);
+        this.animate();
+    }
+    
+    resize() {
+        this.canvas.width = this.canvas.offsetWidth;
+        this.canvas.height = this.canvas.offsetHeight;
+    }
+    
+    createParticles(count) {
+        for (let i = 0; i < count; i++) {
+            this.particles.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                radius: Math.random() * 2 + 1,
+                color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                alpha: Math.random() * 0.5 + 0.2
+            });
+        }
+    }
+    
+    animate() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.particles.forEach(particle => {
+            // Mouse attraction
+            const dx = this.mouse.x - particle.x;
+            const dy = this.mouse.y - particle.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 100) {
+                const angle = Math.atan2(dy, dx);
+                const force = (100 - distance) / 100;
+                
+                particle.vx += Math.cos(angle) * force * 0.1;
+                particle.vy += Math.sin(angle) * force * 0.1;
+            }
+            
+            // Update position
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+            
+            // Bounce off walls
+            if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
+            if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
+            
+            // Draw particle
+            this.ctx.beginPath();
+            this.ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+            this.ctx.fillStyle = particle.color;
+            this.ctx.globalAlpha = particle.alpha;
+            this.ctx.fill();
+            this.ctx.globalAlpha = 1;
+            
+            // Draw connections
+            this.particles.forEach(other => {
+                if (particle === other) return;
+                
+                const dx = particle.x - other.x;
+                const dy = particle.y - other.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 100) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(particle.x, particle.y);
+                    this.ctx.lineTo(other.x, other.y);
+                    this.ctx.strokeStyle = particle.color;
+                    this.ctx.globalAlpha = 0.1 * (1 - distance/100);
+                    this.ctx.lineWidth = 0.5;
+                    this.ctx.stroke();
+                    this.ctx.globalAlpha = 1;
+                }
+            });
+        });
+        
+        requestAnimationFrame(() => this.animate());
+    }
+}
+
+// Initialize particle system
+let particleSystem;
+
+document.addEventListener('DOMContentLoaded', function() {
+    particleSystem = new ParticleSystem('particleCanvas');
+});
+
+function startFireworks() {
+    // Simple fireworks effect
+    for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+            createFirework(
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerHeight * 0.5
+            );
+        }, i * 100);
+    }
+}
+
+function createFirework(x, y) {
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+    
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        particle.style.cssText = `
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: ${color};
+            border-radius: 50%;
+            left: ${x}px;
+            top: ${y}px;
+            z-index: 9999;
+            pointer-events: none;
+            box-shadow: 0 0 10px ${color};
+        `;
+        
+        document.body.appendChild(particle);
+        
+        // Animate
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 3 + 1;
+        const vx = Math.cos(angle) * speed;
+        const vy = Math.sin(angle) * speed;
+        
+        let posX = x;
+        let posY = y;
+        let opacity = 1;
+        
+        const interval = setInterval(() => {
+            posX += vx;
+            posY += vy;
+            opacity -= 0.02;
+            
+            particle.style.left = posX + 'px';
+            particle.style.top = posY + 'px';
+            particle.style.opacity = opacity;
+            
+            if (opacity <= 0) {
+                clearInterval(interval);
+                particle.remove();
+            }
+        }, 16);
+    }
+}
+
+function addParticles() {
+    if (particleSystem) {
+        particleSystem.createParticles(50);
+    }
+}
+
+function triggerAllEffects() {
+    startFireworks();
+    
+    // Add glitch effect temporarily
+    const glitch = document.querySelector('.glitch');
+    glitch.style.animation = 'none';
+    setTimeout(() => {
+        glitch.style.animation = '';
+    }, 100);
+    
+    // Add floating to all cards
+    document.querySelectorAll('.feature-card').forEach(card => {
+        card.classList.add('float-animation');
+        setTimeout(() => card.classList.remove('float-animation'), 3000);
+    });
+}
+
+function grandFinale() {
+    // Massive fireworks show
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+            createFirework(
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerHeight
+            );
+        }, i * 50);
+    }
+    
+    // Alert message
+    setTimeout(() => {
+        alert('🎉 INSANE VISUAL EFFECTS! This is what Bharat can do! 🎉');
+    }, 2000);
+}
+</script>
+{% endblock %}
