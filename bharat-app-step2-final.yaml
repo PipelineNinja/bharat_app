@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bharat-app
+  namespace: bharat-app
+spec:
+  template:
+    spec:
+      containers:
+      - name: bharat-app
+        volumeMounts:
+        - name: app-storage
+          mountPath: /app/static
+          subPath: static
+        - name: app-storage
+          mountPath: /app/media
+          subPath: media
+      volumes:
+      - name: app-storage
+        persistentVolumeClaim:
+          claimName: bharat-app-pvc
+

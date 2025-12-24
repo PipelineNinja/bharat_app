@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bharat-app
+  namespace: bharat-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bharat-app
+  template:
+    metadata:
+      labels:
+        app: bharat-app
+    spec:
+      containers:
+      - name: bharat-app
+        image: 506100848447.dkr.ecr.us-east-1.amazonaws.com/bharat-app:latest
+        volumeMounts:
+        - mountPath: /data
+          name: app-storage
+      volumes:
+      - name: app-storage
+        persistentVolumeClaim:
+          claimName: bharat-app-pvc
+
